@@ -1,16 +1,16 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: nodejs-backend-template
-  title: NodeJS App Template
-  description: Create a new NodeJS API website project
+  name: nodejs-frontend-template
+  title: React App Template
+  description: Create a new React website project
   tags:
-    - nodejs
-    - ltsgallium
+    - ReactJS
+    - cra
     - api
 spec:
   owner: ab-inbev
-  type: api
+  type: website
   parameters:
     - title: Provide information
       required:
