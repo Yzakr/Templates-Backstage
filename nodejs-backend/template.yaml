@@ -6,7 +6,7 @@ metadata:
   description: Create a new NodeJS API website project
   tags:
     - nodejs
-    - lts-gallium
+    - ltsgallium
     - api
 spec:
   owner: ab-inbev
