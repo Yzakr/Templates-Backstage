@@ -44,7 +44,8 @@ spec:
           ui:field: RepoUrlPicker
           ui:options:
             allowedHosts:
-              - dev.azure.com
+                - dev.azure.com
+                - github.com
   steps:
     - id: template
       name: Fetch Skeleton + Template
@@ -63,7 +64,7 @@ spec:
       name: Log Message
       action: debug:log
       input:
-        message: '${{"https://dev.azure.com/ab-inbev-maz/" + (parameters.repoUrl | parseRepoUrl)["owner"] + "/_git/" + (parameters.repoUrl | parseRepoUrl)["repo"] }}'
+        message: ${{ parameters.repoUrl | parseRepoUrl }}
 
     - id: publish
       name: Publish
@@ -71,7 +72,7 @@ spec:
       input:
         allowedHosts: ['dev.azure.com']
         description: 'This is {{ parameters.name }}'
-        repoUrl: '${{"https://dev.azure.com/ab-inbev-maz/" + (parameters.repoUrl | parseRepoUrl)["owner"] + "/_git/" + (parameters.repoUrl | parseRepoUrl)["repo"] }}'
+        repoUrl: ${{ parameters.repoUrl | parseRepoUrl }}
 
     - id: register
       name: Register
