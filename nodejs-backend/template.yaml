@@ -59,13 +59,19 @@ spec:
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
           owner: ${{ parameters.owner }}
 
+    - id: log-message
+      name: Log Message
+      action: debug:log
+      input:
+        message: 'Hello, ${{ parameters.repoUrl }}!'
+        
     - id: publish
       name: Publish
       action: publish:azure
       input:
         allowedHosts: ['dev.azure.com']
         description: 'This is {{ parameters.name }}'
-        repoUrl: ${{"https://dev.azure.com/ab-inbev-maz/" + (parameters.repoUrl | parseRepoUrl)["owner"] + "/_git/" + (parameters.repoUrl | parseRepoUrl)["repo"] }}
+        repoUrl: '{{ parameters.repoUrl }}'
 
     - id: register
       name: Register
