@@ -70,7 +70,6 @@ spec:
       name: Publish
       action: publish:azure
       input:
-        allowedHosts: ['dev.azure.com']
         description: 'This is {{ parameters.name }}'
         repoUrl: ${{ parameters.repoUrl | parseRepoUrl }}
 
