@@ -65,7 +65,7 @@ spec:
       input:
         allowedHosts: ['dev.azure.com']
         description: 'This is {{ parameters.name }}'
-        repoUrl: '{{ parameters.repoUrl }}'
+        repoUrl: ${{"https://dev.azure.com/ab-inbev-maz/" + (parameters.repoUrl | parseRepoUrl)["owner"] + "/_git/" + (parameters.repoUrl | parseRepoUrl)["repo"] }}
 
     - id: register
       name: Register
