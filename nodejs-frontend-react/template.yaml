@@ -45,6 +45,7 @@ spec:
           ui:options:
             allowedHosts:
               - dev.azure.com
+              - github.com
   steps:
     - id: template
       name: Fetch Skeleton + Template
@@ -69,7 +70,7 @@ spec:
       name: Publish
       action: publish:azure
       input:
-        allowedHosts: ['dev.azure.com']
+        allowedHosts: 'github.com'
         description: 'This is {{ parameters.name }}'
         defaultBranch: 'main'
         repoUrl: '${{"https://dev.azure.com/ab-inbev-maz/" + (parameters.repoUrl | parseRepoUrl)["owner"] + "/_git/" + (parameters.repoUrl | parseRepoUrl)["repo"] }}'
