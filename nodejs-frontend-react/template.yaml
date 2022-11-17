@@ -5,7 +5,7 @@ metadata:
   title: React App Template
   description: Create a new React website project
   tags:
-    - ReactJS
+    - reactjs
     - cra
     - api
 spec:
