@@ -63,8 +63,8 @@ spec:
       name: Log Message
       action: debug:log
       input:
-        message: 'Hello, ${{ parameters.repoUrl }}!'
-        
+        message: '${{"https://dev.azure.com/ORG/" + (parameters.repoUrl | parseRepoUrl)["owner"] + "/_git/" + (parameters.repoUrl | parseRepoUrl)["repo"] }}'
+
     - id: publish
       name: Publish
       action: publish:azure
