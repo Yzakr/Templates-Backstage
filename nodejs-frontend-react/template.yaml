@@ -12,28 +12,6 @@ spec:
   owner: ab-inbev
   type: website
   parameters:
-    - title: Provide information
-      required:
-        - component_id
-        - owner
-      properties:
-        component_id:
-          title: Name
-          type: string
-          description: Unique name of the component
-          ui:field: EntityNamePicker
-        description:
-          title: Description
-          type: string
-          description: Help others understand what this website is for.
-        owner:
-          title: Owner
-          type: string
-          description: Owner of the component
-          ui:field: OwnerPicker
-          ui:options:
-            allowedKinds:
-              - Group
     - title: Choose a location
       required:
         - repoUrl
@@ -63,7 +41,7 @@ spec:
       name: Log Message
       action: debug:log
       input:
-        message: '${{"dev.azure.com/"+(parameters.organization)+"/" + (parameters.owner) + "/_git/" + (parameters.repoUrl | parseRepoUrl)["repo"] }}'
+        message: '${{"dev.azure.com/"+(parameters.repoURL.organization)+"/" + (parameters.repoURL.project) + "/_git/" + (parameters.repoURL.repository) }}'
         
     - id: publish
       name: Publish
@@ -72,7 +50,7 @@ spec:
         allowedHosts: ['dev.azure.com']
         description: 'This is {{ parameters.name }}'
         defaultBranch: 'main'
-        repoUrl: '${{"dev.azure.com/ab-inbev-maz/" + (parameters.owner) + "/_git/" + (parameters.repoUrl | parseRepoUrl)["repo"] }}'
+        repoUrl: '${{"dev.azure.com/"+(parameters.repoURL.organization)+"/" + (parameters.repoURL.project) + "/_git/" + (parameters.repoURL.repository) }}'
 
     - id: register
       name: Register
