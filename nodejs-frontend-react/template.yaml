@@ -10,58 +10,58 @@ metadata:
     - api
 spec:
   owner: ab-inbev
-  type: website
+  type: service
   parameters:
-    - title: Choose a location
+    - title: Fill in some steps
       required:
-        - repoUrl
+        - name
+        - owner
       properties:
-        repoUrl:
-          title: Repository Location
+        name:
+          title: Project name
           type: string
-          ui:field: RepoUrlPicker
+          description: Choose a unique project name.
+          ui:field: EntityNamePicker
+          ui:autofocus: true
+        owner:
+          title: Owner
+          type: string
+          description: Select an owner for the Backstage component.
+          ui:field: OwnerPicker
           ui:options:
-            allowedHosts:
-              - dev.azure.com
+            allowedKinds:
+              - Group
   steps:
-    - id: template
-      name: Fetch Skeleton + Template
+    - id: cloneAzureRepo
+      name: Clone Azure Repo
+      action: azure:repo:clone
+      input:
+        remoteUrl: "https://ab-inbev-maz@dev.azure.com/ab-inbev-maz/MAZ_Automation_DevOps/_git/backstage-ntech-templates"
+        branch: "main"
+        targetPath: ./sub-directory
+
+    - id: fetch
+      name: Template Skeleton
       action: fetch:template
       input:
         url: ./skeleton
-        copyWithoutRender:
-          - .github/workflows/*
+        targetPath: ./sub-directory
         values:
-          component_id: ${{ parameters.component_id }}
-          description: ${{ parameters.description }}
-          destination: ${{ parseRepoUrl parameters.repoUrl }}
+          name: ${{ parameters.name }}
           owner: ${{ parameters.owner }}
 
-    - id: log-message
-      name: Log Message
-      action: debug:log
+    - id: pushAzureRepo
+      name: Push to Remote Azure Repo
+      action: azure:repo:push
       input:
-        message: '${{"dev.azure.com/"+(parameters.repoURL.organization)+"/" + (parameters.repoURL.project) + "/_git/" + (parameters.repoURL.repository) }}'
-        
-    - id: publish
-      name: Publish
-      action: publish:azure
-      input:
-        allowedHosts: ['dev.azure.com']
-        description: 'This is {{ parameters.name }}'
-        repoUrl: '{{ parameters.repoUrl }}'
-
-    - id: register
-      name: Register
-      action: catalog:register
-      input:
-        repoContentsUrl: ${{ steps.publish.output.remoteUrl }}
-        catalogInfoPath: "/catalog-info.yaml"
+        branch: "main"
+        sourcePath: ./sub-directory/nodejs-frontend-react/skeleton
+        gitCommitMessage: Add ${{ parameters.name }} project files
 
   output:
     links:
       - title: Repository
-        url: ${{ steps.publish.output.remoteUrl }}
+        url: "dev.azure.com?owner=<MY_AZURE_PROJECT>&repo=<MY_AZURE_REPOSITORY>&organization=<MY_AZURE_ORGANIZATION>"
       - title: Open in catalog
         icon: catalog
         entityRef: ${{ steps.register.output.entityRef }}
