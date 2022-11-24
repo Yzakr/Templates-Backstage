@@ -72,7 +72,7 @@ spec:
         allowedHosts: ['dev.azure.com']
         description: 'This is {{ parameters.name }}'
         defaultBranch: 'main'
-        repoUrl: '${{"dev.azure.com/ab-inbev-maz/" + (parameters.repoUrl | parseRepoUrl)["owner"] + "/_git/" + (parameters.repoUrl | parseRepoUrl)["repo"] }}'
+        repoUrl: '${{"dev.azure.com/ab-inbev-maz/" + (parameters.owner) + "/_git/" + (parameters.repoUrl | parseRepoUrl)["repo"] }}'
 
     - id: register
       name: Register
