@@ -63,7 +63,7 @@ spec:
       name: Log Message
       action: debug:log
       input:
-        message: '${{"dev.azure.com/"+(parameters.organization)+"/" + (parameters.repoUrl | parseRepoUrl)["owner"] + "/_git/" + (parameters.repoUrl | parseRepoUrl)["repo"] }}'
+        message: '${{"dev.azure.com/"+(parameters.organization)+"/" + (parameters.owner) + "/_git/" + (parameters.repoUrl | parseRepoUrl)["repo"] }}'
         
     - id: publish
       name: Publish
