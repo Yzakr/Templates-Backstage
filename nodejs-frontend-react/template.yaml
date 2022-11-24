@@ -37,6 +37,7 @@ spec:
       action: azure:repo:clone
       input:
         repoUrl: "https://ab-inbev-maz@dev.azure.com/ab-inbev-maz/MAZ_Automation_DevOps/_git/backstage-ntech-templates"
+        remoteUrl: "https://ab-inbev-maz@dev.azure.com/ab-inbev-maz/MAZ_Automation_DevOps/_git/backstage-ntech-templates"
         branch: "main"
         targetPath: ./sub-directory
 
