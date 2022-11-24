@@ -49,8 +49,7 @@ spec:
       input:
         allowedHosts: ['dev.azure.com']
         description: 'This is {{ parameters.name }}'
-        defaultBranch: 'main'
-        repoUrl: '${{"dev.azure.com/"+(parameters.repoURL.organization)+"/" + (parameters.repoURL.project) + "/_git/" + (parameters.repoURL.repository) }}'
+        repoUrl: '{{ parameters.repoUrl }}'
 
     - id: register
       name: Register
